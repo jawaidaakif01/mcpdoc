@@ -1,3 +1,12 @@
+> [!NOTE]
+> **Maintained Fork (`mcp` SDK v2.x Compatible)**  
+> This repository is an updated, maintained fork of the archived [`langchain-ai/mcpdoc`](https://github.com/langchain-ai/mcpdoc).  
+> 
+> **Key Updates & Fixes:**
+> - Upgraded to `mcp` SDK **v2.x** (`FastMCP` → `MCPServer`).
+> - Fixed constructor `TypeError: MCPServer.__init__() got an unexpected keyword argument 'host'` by properly routing transport options to `server.run(transport="sse", host=..., port=...)`.
+> - Updated dependencies (`mcp[cli]>=2.0.0`) and unit tests.
+
 # MCP LLMS-TXT Documentation Server
 
 ## Overview
