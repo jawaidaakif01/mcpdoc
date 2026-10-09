@@ -6,7 +6,7 @@ from urllib.parse import urlparse, urljoin
 
 import httpx
 from markdownify import markdownify
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -145,27 +145,28 @@ def create_server(
     timeout: float = 10,
     settings: dict | None = None,
     allowed_domains: list[str] | None = None,
-) -> FastMCP:
+) -> MCPServer:
     """Create the server and generate documentation retrieval tools.
 
     Args:
         doc_sources: List of documentation sources to make available
         follow_redirects: Whether to follow HTTP redirects when fetching docs
         timeout: HTTP request timeout in seconds
-        settings: Additional settings to pass to FastMCP
+        settings: Additional settings to pass to MCPServer
         allowed_domains: Additional domains to allow fetching from.
             Use ['*'] to allow all domains
             The domain hosting the llms.txt file is always appended to the list
             of allowed domains.
 
     Returns:
-        A FastMCP server instance configured with documentation tools
+        A MCPServer server instance configured with documentation tools
     """
     settings = settings or {}
-    server = FastMCP(
+    server_settings = {k: v for k, v in settings.items() if k not in ("host", "port")}
+    server = MCPServer(
         name="llms-txt",
         instructions=_get_server_instructions(doc_sources),
-        **settings,
+        **server_settings,
     )
     httpx_client = httpx.AsyncClient(follow_redirects=follow_redirects, timeout=timeout)
 

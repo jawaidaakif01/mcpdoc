@@ -6,9 +6,9 @@ This is used as a way to test the doc functionality via MCP.
 # /usr/bin/env python3
 import httpx
 from markdownify import markdownify
-from mcp.server.fastmcp import FastMCP
+from mcp.server.mcpserver import MCPServer
 
-server = FastMCP(name="llms-txt")
+server = MCPServer(name="llms-txt")
 
 ALLOWED_PREFIX = "https://langchain-ai.github.io/"
 

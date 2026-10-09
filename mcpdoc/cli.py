@@ -258,7 +258,10 @@ def main() -> None:
         )
 
     # Pass transport-specific options
-    server.run(transport=args.transport)
+    if args.transport == "sse":
+        server.run(transport=args.transport, host=args.host, port=args.port)
+    else:
+        server.run(transport=args.transport)
 
 
 if __name__ == "__main__":
